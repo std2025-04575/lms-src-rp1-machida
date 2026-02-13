@@ -334,4 +334,20 @@ public class StudentAttendanceService {
 		return messageUtil.getMessage(Constants.PROP_KEY_ATTENDANCE_UPDATE_NOTICE);
 	}
 
+	public Boolean notEnterCheck() throws ParseException {
+		
+		Integer lmsUserId = loginUserDto.getLmsUserId();
+		// 今日の日付を取得
+		Date date = new Date();
+
+		// 未入力件数を取得
+		Integer notEnteredDay = tStudentAttendanceMapper.notEnterCount(lmsUserId, Constants.DB_FLG_FALSE, date);
+		
+		if (0 < notEnteredDay) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+
 }
