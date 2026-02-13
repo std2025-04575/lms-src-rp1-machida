@@ -335,6 +335,12 @@ public class StudentAttendanceService {
 		return messageUtil.getMessage(Constants.PROP_KEY_ATTENDANCE_UPDATE_NOTICE);
 	}
 
+	/**
+	 * 過去日の未入力チェック機能
+	 * 
+	 * @return 勤怠管理画面
+	 * @throws ParseException
+	 */
 	public Boolean notEnterCheck() throws ParseException {
 
 		//LMSユーザIDを取得
