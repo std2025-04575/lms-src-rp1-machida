@@ -146,5 +146,38 @@ public class AttendanceUtil {
 		}
 		return false;
 	}
+	
+	/**
+	 * 時間のプルダウンマップを生成
+	 * 
+	 * @author 町田優希-Task.26
+	 * @return 時間のプルダウンマップ
+	 */
+	public LinkedHashMap<Integer, String> getHourMap() {
+		LinkedHashMap<Integer, String> HourMap = new LinkedHashMap<>();
+		HourMap.put(null, "");
+		for (int i = 0; i < 12; i++) {
+			HourMap.put(i, String.format("%02d", i));
+		}
+		
+		return HourMap;
+		
+	}
+	
+	/**
+	 * 分のプルダウンマップを生成
+	 * 
+	 * @author 町田優希-Task.26
+	 * @return 分のプルダウンマップ
+	 */
+	public LinkedHashMap<Integer, String> getMinuteMap() {
+		LinkedHashMap<Integer, String> MinuteMap = new LinkedHashMap<>();
+		MinuteMap.put(null, "");
+		for (int i = 0; i < 12; i++) {
+			MinuteMap.put(i, String.format("%02d", i));
+		}
+		
+		return MinuteMap;
+	}
 
 }
