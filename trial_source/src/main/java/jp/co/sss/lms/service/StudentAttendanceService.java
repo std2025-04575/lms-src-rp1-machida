@@ -338,6 +338,7 @@ public class StudentAttendanceService {
 	/**
 	 * 過去日の未入力チェック機能
 	 * 
+	 * @author 町田優希-Task.25
 	 * @return 勤怠管理画面
 	 * @throws ParseException
 	 */

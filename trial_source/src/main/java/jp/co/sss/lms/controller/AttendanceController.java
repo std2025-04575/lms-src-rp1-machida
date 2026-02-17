@@ -29,7 +29,7 @@ public class AttendanceController {
 	private StudentAttendanceService studentAttendanceService;
 	@Autowired
 	private LoginUserDto loginUserDto;
-	
+
 	/**
 	 * 勤怠管理画面 初期表示
 	 * 
@@ -47,6 +47,7 @@ public class AttendanceController {
 				.getAttendanceManagement(loginUserDto.getCourseId(), loginUserDto.getLmsUserId());
 		model.addAttribute("attendanceManagementDtoList", attendanceManagementDtoList);
 
+		// 町田優希-Task.25
 		// 現在より過去に未入力が無いかチェック
 		Boolean notEnteredDay = studentAttendanceService.notEnterCheck();
 		model.addAttribute("notEnteredDay", notEnteredDay);

@@ -104,7 +104,7 @@
 		WHERE student_attendance_id = #{studentAttendanceId}
 	</update>
 
-
+	<!--町田優希-Task.25 -->
 	<select id="notEnterCount" resultType="Integer">
     <![CDATA[
 		SELECT COUNT(*)
