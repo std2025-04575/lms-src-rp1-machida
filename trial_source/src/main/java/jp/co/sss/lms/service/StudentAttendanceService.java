@@ -224,6 +224,7 @@ public class StudentAttendanceService {
 		// 町田優希-Task.26
 		attendanceForm.setHourMap(attendanceUtil.getHourMap());
 		attendanceForm.setMinuteMap(attendanceUtil.getMinuteMap());
+		// ここまで
 
 		// 途中退校している場合のみ設定
 		if (loginUserDto.getLeaveDate() != null) {
@@ -248,12 +249,17 @@ public class StudentAttendanceService {
 				dailyAttendanceForm.setBlankTimeValue(String.valueOf(
 						attendanceUtil.calcBlankTime(attendanceManagementDto.getBlankTime())));
 			}
-			
+
 			// 町田優希-Task.26
-			dailyAttendanceForm.setTrainingStartHour(attendanceUtil.getHour(attendanceManagementDto.getTrainingStartTime()));
-			dailyAttendanceForm.setTrainingStartMinute(attendanceUtil.getMinute(attendanceManagementDto.getTrainingStartTime()));
-			dailyAttendanceForm.setTrainingEndHour(attendanceUtil.getHour(attendanceManagementDto.getTrainingEndTime()));
-			dailyAttendanceForm.setTrainingEndMinute(attendanceUtil.getMinute(attendanceManagementDto.getTrainingEndTime()));
+			dailyAttendanceForm
+					.setTrainingStartHour(attendanceUtil.getHour(attendanceManagementDto.getTrainingStartTime()));
+			dailyAttendanceForm
+					.setTrainingStartMinute(attendanceUtil.getMinute(attendanceManagementDto.getTrainingStartTime()));
+			dailyAttendanceForm
+					.setTrainingEndHour(attendanceUtil.getHour(attendanceManagementDto.getTrainingEndTime()));
+			dailyAttendanceForm
+					.setTrainingEndMinute(attendanceUtil.getMinute(attendanceManagementDto.getTrainingEndTime()));
+			// ここまで
 
 			dailyAttendanceForm.setStatus(String.valueOf(attendanceManagementDto.getStatus()));
 			dailyAttendanceForm.setNote(attendanceManagementDto.getNote());
@@ -371,6 +377,40 @@ public class StudentAttendanceService {
 		Integer notEnteredDay = tStudentAttendanceMapper.notEnterCount(lmsUserId, Constants.DB_FLG_FALSE, dateOnly);
 
 		return (0 < notEnteredDay);
+	}
+
+	/**
+	 * 「時」と「分」をhh:mm形式に変換
+	 * 
+	 * @author 町田優希-Task.26
+	 * @param attendanceForm
+	 */
+	public void formatConversion(AttendanceForm attendanceForm) {
+		for (DailyAttendanceForm dailyAttendanceForm : attendanceForm.getAttendanceList()) {
+
+			// 出勤の「時」を取得
+			Integer trainingStartHour = dailyAttendanceForm.getTrainingStartHour();
+			// 出勤の「分」を取得
+			Integer trainingStartMinute = dailyAttendanceForm.getTrainingStartMinute();
+			// 退勤の「時」を取得
+			Integer trainingEndHour = dailyAttendanceForm.getTrainingEndHour();
+			// 退勤の「分」を取得
+			Integer trainingEndMinute = dailyAttendanceForm.getTrainingEndMinute();
+			
+			
+			if ((trainingStartHour != null) && (trainingStartMinute != null)) {
+				// 出勤の「時」と「分」を "00:00" の形式に変換
+				dailyAttendanceForm
+				.setTrainingStartTime(String.format("%02d:%02d", trainingStartHour, trainingStartMinute));
+			}
+				
+
+			if ((trainingEndHour != null) && (trainingEndMinute != null)) {
+				// 退勤の「時」と「分」を "00:00" の形式に変換
+				dailyAttendanceForm
+						.setTrainingEndTime(String.format("%02d:%02d", trainingEndHour, trainingEndMinute));
+			}
+		}
 	}
 
 }
