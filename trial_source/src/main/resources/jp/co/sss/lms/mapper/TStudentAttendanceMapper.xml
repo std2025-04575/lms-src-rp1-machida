@@ -119,5 +119,5 @@
 			  OR training_end_time IS NULL)
 	]]>
 	</select>
-
+	<!--ここまで-->
 </mapper>
