@@ -42,18 +42,18 @@ public class AttendanceController {
 	@RequestMapping(path = "/detail", method = RequestMethod.GET)
 	public String index(Model model) throws ParseException {
 
+		// 町田優希-Task.25
+
+		// 現在より過去に未入力が無いかチェック
+		Boolean notEnteredDay = studentAttendanceService.notEnterCheck();
+		model.addAttribute("notEnteredDay", notEnteredDay);
+
+		// ここまで
+
 		// 勤怠一覧の取得
 		List<AttendanceManagementDto> attendanceManagementDtoList = studentAttendanceService
 				.getAttendanceManagement(loginUserDto.getCourseId(), loginUserDto.getLmsUserId());
 		model.addAttribute("attendanceManagementDtoList", attendanceManagementDtoList);
-
-		// 町田優希-Task.25
-		
-		// 現在より過去に未入力が無いかチェック
-		Boolean notEnteredDay = studentAttendanceService.notEnterCheck();
-		model.addAttribute("notEnteredDay", notEnteredDay);
-		
-		// ここまで
 
 		return "attendance/detail";
 	}
