@@ -350,7 +350,7 @@ public class StudentAttendanceService {
 	 * 過去日の未入力チェック機能
 	 * 
 	 * @author 町田優希-Task.25
-	 * @return 勤怠管理画面
+	 * @return 未入力件数があるかの判定
 	 * @throws ParseException
 	 */
 	public Boolean notEnterCheck() throws ParseException {
@@ -370,11 +370,7 @@ public class StudentAttendanceService {
 		// 未入力件数を取得
 		Integer notEnteredDay = tStudentAttendanceMapper.notEnterCount(lmsUserId, Constants.DB_FLG_FALSE, dateOnly);
 
-		if (0 < notEnteredDay) {
-			return true;
-		} else {
-			return false;
-		}
+		return (0 < notEnteredDay);
 	}
 
 }
