@@ -179,5 +179,29 @@ public class AttendanceUtil {
 		
 		return MinuteMap;
 	}
+	
+	/**
+	 * 時間(時)の切り出し
+	 * 
+	 * @author 町田優希-Task.26
+	 * @param 開始時刻or終了時刻
+	 * @return 出退勤時間(時間)
+	 */
+	public Integer getHour(String timeString) {
+		Integer timeInteger = Integer.parseInt(timeString.substring(0, 2));
+		return timeInteger;
+	}
+	
+	/**
+	 * 時間(分)の切り出し
+	 * 
+	 * @author 町田優希-Task.26
+	 * @param 開始時刻or終了時刻
+	 * @return 出退勤時間(分)
+	 */
+	public Integer getMinute(String timeString) {
+		Integer timeInteger = Integer.parseInt(timeString.substring(3, 5));
+		return timeInteger;
+	}
 
 }
