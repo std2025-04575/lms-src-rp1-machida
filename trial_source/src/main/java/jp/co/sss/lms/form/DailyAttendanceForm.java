@@ -18,16 +18,20 @@ public class DailyAttendanceForm {
 	private String trainingDate;
 	/** 出勤時間 */
 	private String trainingStartTime;
-	/** 出勤時間(時間) */
-	private Integer trainingStartHour;
-	/** 出勤時間(分) */
-	private Integer trainingStartMinute;
 	/** 退勤時間 */
 	private String trainingEndTime;
+
+	// 町田優希-Task.26
+	/** 出勤時間(時間) */
+	private Integer trainingStartTimeHour;
+	/** 出勤時間(分) */
+	private Integer trainingStartTimeMinute;
 	/** 退勤時間(時間) */
-	private Integer trainingEndHour;
+	private Integer trainingEndTimeHour;
 	/** 退勤時間(分) */
-	private Integer trainingEndMinute;
+	private Integer trainingEndTimeMinute;
+	// ここまで
+
 	/** 中抜け時間 */
 	private Integer blankTime;
 	/** 中抜け時間（画面表示用） */

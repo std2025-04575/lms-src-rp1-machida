@@ -252,13 +252,13 @@ public class StudentAttendanceService {
 
 			// 町田優希-Task.26
 			dailyAttendanceForm
-					.setTrainingStartHour(attendanceUtil.getHour(attendanceManagementDto.getTrainingStartTime()));
+					.setTrainingStartTimeHour(attendanceUtil.getHour(attendanceManagementDto.getTrainingStartTime()));
 			dailyAttendanceForm
-					.setTrainingStartMinute(attendanceUtil.getMinute(attendanceManagementDto.getTrainingStartTime()));
+					.setTrainingStartTimeMinute(attendanceUtil.getMinute(attendanceManagementDto.getTrainingStartTime()));
 			dailyAttendanceForm
-					.setTrainingEndHour(attendanceUtil.getHour(attendanceManagementDto.getTrainingEndTime()));
+					.setTrainingEndTimeHour(attendanceUtil.getHour(attendanceManagementDto.getTrainingEndTime()));
 			dailyAttendanceForm
-					.setTrainingEndMinute(attendanceUtil.getMinute(attendanceManagementDto.getTrainingEndTime()));
+					.setTrainingEndTimeMinute(attendanceUtil.getMinute(attendanceManagementDto.getTrainingEndTime()));
 			// ここまで
 
 			dailyAttendanceForm.setStatus(String.valueOf(attendanceManagementDto.getStatus()));
@@ -389,13 +389,13 @@ public class StudentAttendanceService {
 		for (DailyAttendanceForm dailyAttendanceForm : attendanceForm.getAttendanceList()) {
 
 			// 出勤の「時」を取得
-			Integer trainingStartHour = dailyAttendanceForm.getTrainingStartHour();
+			Integer trainingStartHour = dailyAttendanceForm.getTrainingStartTimeHour();
 			// 出勤の「分」を取得
-			Integer trainingStartMinute = dailyAttendanceForm.getTrainingStartMinute();
+			Integer trainingStartMinute = dailyAttendanceForm.getTrainingStartTimeMinute();
 			// 退勤の「時」を取得
-			Integer trainingEndHour = dailyAttendanceForm.getTrainingEndHour();
+			Integer trainingEndHour = dailyAttendanceForm.getTrainingEndTimeHour();
 			// 退勤の「分」を取得
-			Integer trainingEndMinute = dailyAttendanceForm.getTrainingEndMinute();
+			Integer trainingEndMinute = dailyAttendanceForm.getTrainingEndTimeMinute();
 			
 			
 			if ((trainingStartHour != null) && (trainingStartMinute != null)) {
