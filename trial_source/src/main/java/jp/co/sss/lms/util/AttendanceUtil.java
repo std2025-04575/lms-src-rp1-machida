@@ -146,7 +146,7 @@ public class AttendanceUtil {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * 時間のプルダウンマップを生成
 	 * 
@@ -159,11 +159,11 @@ public class AttendanceUtil {
 		for (int i = 0; i < 24; i++) {
 			HourMap.put(i, String.format("%02d", i));
 		}
-		
+
 		return HourMap;
-		
+
 	}
-	
+
 	/**
 	 * 分のプルダウンマップを生成
 	 * 
@@ -176,10 +176,10 @@ public class AttendanceUtil {
 		for (int i = 0; i < 60; i++) {
 			MinuteMap.put(i, String.format("%02d", i));
 		}
-		
+
 		return MinuteMap;
 	}
-	
+
 	/**
 	 * 時間(時)の切り出し
 	 * 
@@ -188,10 +188,18 @@ public class AttendanceUtil {
 	 * @return 出退勤時間(時間)
 	 */
 	public Integer getHour(String timeString) {
-		Integer timeInteger = Integer.parseInt(timeString.substring(0, 2));
+
+		Integer timeInteger = null;
+
+		// 出退勤時間が未入力の場合
+		if (timeString == null) {
+			return timeInteger;
+		}
+
+		timeInteger = Integer.parseInt(timeString.substring(0, 2));
 		return timeInteger;
 	}
-	
+
 	/**
 	 * 時間(分)の切り出し
 	 * 
@@ -200,7 +208,15 @@ public class AttendanceUtil {
 	 * @return 出退勤時間(分)
 	 */
 	public Integer getMinute(String timeString) {
-		Integer timeInteger = Integer.parseInt(timeString.substring(3, 5));
+
+		Integer timeInteger = null;
+
+		// 出退勤時間が未入力の場合
+		if (timeString == null) {
+			return timeInteger;
+		}
+
+		timeInteger = Integer.parseInt(timeString.substring(3, 5));
 		return timeInteger;
 	}
 
