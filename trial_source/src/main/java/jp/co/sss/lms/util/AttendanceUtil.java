@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.LinkedHashMap;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -192,7 +193,7 @@ public class AttendanceUtil {
 		Integer timeInteger = null;
 
 		// 出退勤時間が未入力の場合
-		if (timeString == null) {
+		if (StringUtils.isBlank(timeString)) {
 			return timeInteger;
 		}
 
@@ -212,7 +213,7 @@ public class AttendanceUtil {
 		Integer timeInteger = null;
 
 		// 出退勤時間が未入力の場合
-		if (timeString == null) {
+		if (StringUtils.isBlank(timeString)) {
 			return timeInteger;
 		}
 
