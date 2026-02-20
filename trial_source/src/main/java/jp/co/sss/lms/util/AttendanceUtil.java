@@ -197,6 +197,7 @@ public class AttendanceUtil {
 			return timeInteger;
 		}
 
+		// 出退勤時間の文字列から「時」を数値型で切り出す
 		timeInteger = Integer.parseInt(timeString.substring(0, 2));
 		return timeInteger;
 	}
@@ -216,7 +217,8 @@ public class AttendanceUtil {
 		if (StringUtils.isBlank(timeString)) {
 			return timeInteger;
 		}
-
+		
+		// 出退勤時間の文字列から「時」を数値型で切り出す
 		timeInteger = Integer.parseInt(timeString.substring(3, 5));
 		return timeInteger;
 	}
