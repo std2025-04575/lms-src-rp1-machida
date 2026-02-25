@@ -217,10 +217,26 @@ public class AttendanceUtil {
 		if (StringUtils.isBlank(timeString)) {
 			return timeInteger;
 		}
-		
+
 		// 出退勤時間の文字列から「時」を数値型で切り出す
 		timeInteger = Integer.parseInt(timeString.substring(3, 5));
 		return timeInteger;
+	}
+
+	/**
+	 * 受講時間数を算出
+	 * 
+	 * @author 町田優希-Task.27
+	 * @param trainingStartTime 開始時刻
+	 * @param trainingEndTime   終了時刻
+	 * @return 受講時間
+	 */
+	public TrainingTime calcJukoTime(TrainingTime trainingStartTime, TrainingTime trainingEndTime) {
+		//	出退勤の差分から計算される最大受講時間
+		TrainingTime trainingTime = trainingEndTime - trainingStartTime;
+		
+		Integer trainingStartTimeInteger = Integer.parseInt(trainingStartTime);
+		return trainingTime;
 	}
 
 }

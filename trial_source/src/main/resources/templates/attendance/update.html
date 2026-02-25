@@ -135,8 +135,9 @@
 				<!--町田優希-Task27-->
 				<script>
 					function updateCheck() {
-						let result = confirm("更新します。よろしいですか？")
-						if (!result) {
+						if (confirm("更新します。よろしいですか？")) {
+							return true;
+						}else {
 							return false;
 						}
 					}

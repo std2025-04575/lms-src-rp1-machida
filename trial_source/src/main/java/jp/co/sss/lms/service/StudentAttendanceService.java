@@ -9,6 +9,8 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 
 import jp.co.sss.lms.dto.AttendanceManagementDto;
 import jp.co.sss.lms.dto.LoginUserDto;
@@ -254,7 +256,8 @@ public class StudentAttendanceService {
 			dailyAttendanceForm
 					.setTrainingStartTimeHour(attendanceUtil.getHour(attendanceManagementDto.getTrainingStartTime()));
 			dailyAttendanceForm
-					.setTrainingStartTimeMinute(attendanceUtil.getMinute(attendanceManagementDto.getTrainingStartTime()));
+					.setTrainingStartTimeMinute(
+							attendanceUtil.getMinute(attendanceManagementDto.getTrainingStartTime()));
 			dailyAttendanceForm
 					.setTrainingEndTimeHour(attendanceUtil.getHour(attendanceManagementDto.getTrainingEndTime()));
 			dailyAttendanceForm
@@ -396,20 +399,91 @@ public class StudentAttendanceService {
 			Integer trainingEndHour = dailyAttendanceForm.getTrainingEndTimeHour();
 			// 退勤の「分」を取得
 			Integer trainingEndMinute = dailyAttendanceForm.getTrainingEndTimeMinute();
-			
-			
+
 			if ((trainingStartHour != null) && (trainingStartMinute != null)) {
 				// 出勤の「時」と「分」を "00:00" の形式に変換
 				dailyAttendanceForm
-				.setTrainingStartTime(String.format("%02d:%02d", trainingStartHour, trainingStartMinute));
+						.setTrainingStartTime(String.format("%02d:%02d", trainingStartHour, trainingStartMinute));
 			}
-				
 
 			if ((trainingEndHour != null) && (trainingEndMinute != null)) {
 				// 退勤の「時」と「分」を "00:00" の形式に変換
 				dailyAttendanceForm
 						.setTrainingEndTime(String.format("%02d:%02d", trainingEndHour, trainingEndMinute));
 			}
+		}
+	}
+
+	/**
+	 * 勤怠更新時の入力チェック機能
+	 * 
+	 * @author 町田優希-Task.27
+	 * @param attendanceForm
+	 * @param result
+	 */
+	public void updateInputCheck(AttendanceForm attendanceForm, BindingResult result) {
+		for (DailyAttendanceForm dailyAttendanceForm : attendanceForm.getAttendanceList()) {
+
+			// 備考の文字数チェック（100文字以内）
+			if (dailyAttendanceForm.getNote().length() >= 100) {
+				result.addError(new FieldError(result.getObjectName(), "", messageUtil.getMessage("maxlength")));
+			}
+
+			// 出勤時間の「時あり、分なし」の矛盾チェック
+			if ((dailyAttendanceForm.getTrainingStartTimeHour() != null)
+					&& (dailyAttendanceForm.getTrainingStartTimeMinute() == null)) {
+				result.addError(
+						new FieldError(result.getObjectName(), "", messageUtil.getMessage("input.invalid")));
+			}
+
+			// 出勤時間の「時なし、分あり」の矛盾チェック
+			if ((dailyAttendanceForm.getTrainingStartTimeHour() == null)
+					&& (dailyAttendanceForm.getTrainingStartTimeMinute() != null)) {
+				result.addError(
+						new FieldError(result.getObjectName(), "",
+								messageUtil.getMessage("input.invalid")));
+			}
+
+			// 退勤時間の「時あり、分なし」の矛盾チェック
+			if ((dailyAttendanceForm.getTrainingEndTimeHour() != null)
+					&& (dailyAttendanceForm.getTrainingEndTimeMinute() == null)) {
+				result.addError(
+						new FieldError(result.getObjectName(), "",
+								messageUtil.getMessage("input.invalid")));
+			}
+
+			// 退勤時間の「時なし、分あり」の矛盾チェック
+			if ((dailyAttendanceForm.getTrainingEndTimeHour() == null)
+					&& (dailyAttendanceForm.getTrainingEndTimeMinute() != null)) {
+				result.addError(
+						new FieldError(result.getObjectName(), "",
+								messageUtil.getMessage("input.invalid")));
+			}
+
+			// 「出勤なし、退勤あり」の矛盾チェック
+			if ((dailyAttendanceForm.getTrainingStartTime() == null)
+					&& (dailyAttendanceForm.getTrainingEndTime() != null)) {
+				result.addError(
+						new FieldError(result.getObjectName(), "",
+								messageUtil.getMessage("attendance.punchInEmpty")));
+			}
+
+			// 出勤時刻 ＞ 退勤時刻 になっていないか比較チェック。
+			if (result.hasErrors()) {
+				return;
+			}
+			
+			
+
+//			// 出退勤の差分から計算される最大受講時間よりも中抜け時間が長くないかチェック
+//			if (dailyAttendanceForm.getBlankTime() != null) {
+//				if (attendanceUtil.calcJukoTime(dailyAttendanceForm.getTrainingStartTime(),
+//						dailyAttendanceForm.getTrainingEndTime()) < dailyAttendanceForm.getBlankTime()) {
+//					result.addError(new FieldError(result.getObjectName(), "",
+//							messageUtil.getMessage("attendance.blankTimeError")));
+//				}
+//			}
+
 		}
 	}
 
