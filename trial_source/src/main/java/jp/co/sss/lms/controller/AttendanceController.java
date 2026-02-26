@@ -145,6 +145,11 @@ public class AttendanceController {
 		// 出勤／退勤時間をhh:mm形式に設定
 		studentAttendanceService.formatConversion(attendanceForm);
 		// ここまで
+		
+		// 町田優希-Task.27
+		// 入力チェック
+		studentAttendanceService.updateInputCheck(attendanceForm, result);
+		// ここまで
 
 		// 更新
 		String message = studentAttendanceService.update(attendanceForm);

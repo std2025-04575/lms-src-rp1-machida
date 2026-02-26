@@ -231,12 +231,9 @@ public class AttendanceUtil {
 	 * @param trainingEndTime   終了時刻
 	 * @return 受講時間
 	 */
-	public TrainingTime calcJukoTime(TrainingTime trainingStartTime, TrainingTime trainingEndTime) {
-		//	出退勤の差分から計算される最大受講時間
-		TrainingTime trainingTime = trainingEndTime - trainingStartTime;
-		
-		Integer trainingStartTimeInteger = Integer.parseInt(trainingStartTime);
-		return trainingTime;
-	}
+//	public TrainingTime calcJukoTime(TrainingTime trainingStartTime, TrainingTime trainingEndTime) {
+//		//	出退勤の差分から計算される最大受講時間
+//		
+//	}
 
 }
